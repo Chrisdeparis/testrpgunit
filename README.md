@@ -204,24 +204,6 @@ end-proc;
 C'est la dernière partie des modules.
 ```
 **free
-//*%CSTD===========================================================*
-//** Application. : CBP CBP                                        *
-//** Composant. . : ADH00279TU                    Type: SQLRPGLE   *
-//**===============================================================*
-//** Sous-système : ADH Adhésion                                   *
-//** Fonction . . :                                                *
-//** Sous-fonction:                                                *
-//**%S=============================================================*
-//** Description des fonctionnalités:                              *
-//**   TearDown du SRVPGM T_ADH00279             *
-//**                                                               *
-//**                                                               *
-//**%E=============================================================*
-//** AUTEUR:KMI            15/03/2017                              *
-//** MODIFS:KMI            25/07/2017                              *
-//*%ECSTD==========================================================*
-
-
 ctl-opt nomain;
 
 /copy RPGUNIT/RPGUNIT1,TESTCASE
