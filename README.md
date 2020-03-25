@@ -1,6 +1,6 @@
 # Test unitaire avec RPGUnit
 
-- Dans ce dépot je vais exposer la méthode de réalisation des tests unitaires avec RPGUnit.
+Voici la méthode de réalisation des tests unitaires avec RPGUnit.
 
 - Tout d'abord la réalisation du CL qui comprend les modules, car le test est un programme de service qui
 utilise des modules.
