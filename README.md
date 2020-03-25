@@ -42,6 +42,7 @@ utilise des modules.
 ```
 > Chaque module doit être préparé suivant les règles de RPGUnit SUnomdumodule, nomdumoduleTU et TDnomdumodule.
 
+## Le Setup
 Le setup dans mon cas : SUcel2fahr
 ```
 **free
@@ -75,6 +76,239 @@ end-proc;
 
 //--------------------------------------------------------------------
 ```
+## Le Test
+Les tests sont à faire au pas à pas. Dans mon cas cel2fahrTU.
+
+```
+**free
+ctl-opt nomain;
+
+/copy RPGUNIT/RPGUNIT1,TESTCASE
+/copy h1frptechs/qcopsrc,s_spvDS
+
+// définition des constantes
+dcl-c APPLICATION     const('ADHTU');
+
+// définition des variables
+dcl-s wcurrentdate   date;
+dcl-s wvanpalier     packed(18:11);
+dcl-s rc             int(10);
+dcl-s wCommande      char(512);
+
+dcl-s wtempFahr    packed(5:0);
+dcl-s wtempCelsius packed(5:2);
+dcl-s wstatus      char(10);
+
+// définition des prototypes
+dcl-pr execcmd    int(10) extproc('system');
+  cmdstring     pointer value   options(*string);
+end-pr;
+
+dcl-pr chargeDB2  ;
+  nomTest  char(10) const;
+  testCase char(10) const;
+end-pr;
+
+dcl-pr celsToFahr Extproc('CELSTOFAHR');
+  in_tempCel    packed(5:2);
+  ou_tempFahr packed(5:0);
+  ou_status      char(10);
+end-pr;
+
+dcl-pr test_01_jetepasse10jerecois50etliquid;
+end-pr;
+
+dcl-pr test_02_jetepasse0jerecois32etfreezing;
+end-pr;
+
+//==============================================================
+// CAS de TEST 1 : passant
+
+dcl-proc test_01_jetepasse10jerecois50etliquid export;
+
+  wtempFahr    = 0;
+  wtempCelsius = 10;
+  wstatus      = *blanks;
+
+  // appel
+  celsToFahr (wtempCelsius
+             :wtempFahr
+             :wstatus);
+
+  assert (wtempFahr=50
+         : ' Erreur temp dans celsToFahr '
+         );
+
+  assert (wstatus = 'liquid'
+         : ' Erreur status dans celsToFahr '
+         );
+
+end-proc;
+
+//==============================================================
+// CAS de TEST 2 : passant
+
+dcl-proc test_02_jetepasse0jerecois32etfreezing export;
+
+  wtempFahr    = 0;
+  wtempCelsius = 0;
+  wstatus      = *blanks;
+
+  // appel
+  celsToFahr (wtempCelsius
+             :wtempFahr
+             :wstatus);
+
+  assert (wtempFahr = 32
+         : ' Erreur temp dans celsToFahr '
+         );
+
+  assert (wstatus = 'freezing'
+         : ' Erreur status dans celsToFahr '
+         );
+
+end-proc;
+
+//----------------------------------------------------------------
+dcl-proc chargeDB2;
+
+  dcl-pi *n;
+    APPLICATION    char(10) const;
+    testCase       char(10) const;
+  end-pi;
+
+  dcl-s wCommand    char(512);
+
+  wrc=0;
+
+  wCommand = 'RUNSQLSTM '
+           + 'SRCSTMF'
+           + '('''
+           + '/Application/Adhesion/TU/chargeDB2/t_spvrcapp/'
+           + %trim(testCase)
+           + '.sql'
+           + ''') '
+           + 'COMMIT(*NC) '
+           + 'MARGINS(112)';
+
+   wrc = execCmd(wCommand);
+
+   assert(wrc=0
+      :'Une erreur est survenue lors de la creation des BDD');
+
+end-proc;
+
+```
+
+## Le Tear Down
+C'est la dernière partie des modules.
+```
+**free
+//*%CSTD===========================================================*
+//** Application. : CBP CBP                                        *
+//** Composant. . : ADH00279TU                    Type: SQLRPGLE   *
+//**===============================================================*
+//** Sous-système : ADH Adhésion                                   *
+//** Fonction . . :                                                *
+//** Sous-fonction:                                                *
+//**%S=============================================================*
+//** Description des fonctionnalités:                              *
+//**   TearDown du SRVPGM T_ADH00279             *
+//**                                                               *
+//**                                                               *
+//**%E=============================================================*
+//** AUTEUR:KMI            15/03/2017                              *
+//** MODIFS:KMI            25/07/2017                              *
+//*%ECSTD==========================================================*
+
+
+ctl-opt nomain;
+
+/copy RPGUNIT/RPGUNIT1,TESTCASE
+/copy h1frptechs/QCOPSRC,s_errorDS
+
+dcl-s wCommande    char(512);
+dcl-s wrc          int(10);
+
+dcl-pr execcmd    int(10) extproc('system');
+  cmdstring     pointer value   options(*string);
+end-pr;
+
+dcl-pr tearDown end-pr;
+
+//---------------------------------------------------------------//
+//Procédure de nettoyage en fin de test (appelée en sortie)
+dcl-proc tearDown export;
+
+  dcl-pi *n;
+
+  end-pi;
+
+end-proc;
+// Procédure fin: ENDJRNPF
+//------------------------------------------------------------------
+dcl-proc endjrnpf;
+
+  wCommande = 'ENDJRNPF FILE(*ALL) JRN(t_fahrtoce/QSQJRN)';
+
+  // execution commande
+  wrc = execCmd(%trim(wcommande));
+
+  assert (wrc=0
+         :'Une erreur est survenue lors du endjrnpf, rc = '
+          + %char(wrc)
+         );
+end-proc;
+
+// Procédure fin: DLTJRNRCV
+//------------------------------------------------------------------
+dcl-proc dltjrnrcv;
+
+  wCommande = 'DLTJRNRCV JRNRCV(t_cel2fahr/QSQJR*) DLTOPT(*IGNINQMSG)';
+
+  // execution commande
+  wrc = execCmd(%trim(wcommande));
+
+  assert(wrc=0
+      :'Une erreur est survenue lors du dltjrnrcv');
+
+end-proc;
+
+// Procédure fin: DLTJRN
+//------------------------------------------------------------------
+dcl-proc dltjrn;
+
+  wCommande = 'DLTJRN JRN(t_cel2fahr/QSQJRN)';
+
+  // execution commande
+  wrc = execCmd(%trim(wcommande));
+
+  assert(wrc=0
+      :'Une erreur est survenue lors du dltjrn');
+
+end-proc;
+
+//------------------------------------------------
+dcl-proc rmvlible export;
+
+  dcl-pi *n;
+    library    char(10) const;
+  end-pi;
+
+  wcommande = 'RMVLIBLE LIB('
+              + %trim(library)
+              + ')';
+
+  // execution commande
+  wrc = execCmd(%trim(wcommande));
+
+  assert (wrc=0
+         :'Erreur lors du rmvlible de ' + library
+         );
+
+end-proc; 
+```
+
 
 ## Envoyer les modifs en intégration
 
@@ -85,5 +319,5 @@ end-proc;
 ## Tester en intégration
 
 - La commande est RUCALLTST T_cel2fahr
-> On peut voir l'affichage du resultat en 5250.
+> On peut voir l'affichage du resultat en 5250. Faire les Tests un par un.
 
