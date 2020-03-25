@@ -45,22 +45,6 @@ utilise des modules.
 Le setup dans mon cas : SUcel2fahr
 ```
 **free
-//      *%CSTD===========================================================*
-//      ** Application. : CBP CBP                                        *
-//      ** Composant. . : ??                     Type: SQLRPGLE          *
-//      **===============================================================*
-//      ** Sous-système : ADH Adhésion                                   *
-//      ** Fonction . . :                                                *
-//      ** Sous-fonction:                                                *
-//      **%S=============================================================*
-//      ** Description des fonctionnalités:                              *
-//      **  Setup du SRVPGM S_ENGLISH                                   *
-//      **                                                               *
-//      **                                                               *
-//      **%E=============================================================*
-//      ** AUTEUR:N Mazo         22/02/2018                              *
-//      *%ECSTD==========================================================*
-
 ctl-opt nomain;
 
 /copy RPGUNIT/RPGUNIT1,TESTCASE
