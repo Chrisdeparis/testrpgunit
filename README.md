@@ -46,3 +46,9 @@ utilise des modules.
 - La commande est SAVRSTOBJ OBJ(T_NOMCLI) LIB(ADHTU) RMTLOCNAME(RECETTE) OBJTYPE(*SRVPGM)
 > RMTLOCNAME indique la machine de destination
 > LIB la Bibliothèque de Tests
+
+## Tester en intégration
+
+- La commande est RUCALLTST T_cel2fahr
+> On peut voir l'affichage du resultat en 5250.
+
