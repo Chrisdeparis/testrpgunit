@@ -40,7 +40,7 @@ utilise des modules.
                 module cel2fahr') BNDDIR(RPGUNIT/RPGUNIT QC2LE LINK) ACTGRP(*CALLER)
     ENDPGM 
 ```
-> Chaque module doit être préparé suivant les règles de RPGUnit SUnomdumodule, nomdumoduleTU et TDnomdumodule.
+> Chaque module doit être préparé suivant les règles de RPGUnit SUnomdumodule, nomdumoduleTU et TDnomdumodule dans le fichier QRPGSRC.
 
 ## Le Setup
 Le setup dans mon cas : SUcel2fahr
