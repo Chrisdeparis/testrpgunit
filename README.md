@@ -43,7 +43,7 @@ utilise des modules.
 > Chaque module doit être préparé suivant les règles de RPGUnit SUnomdumodule, nomdumoduleTU et TDnomdumodule dans le fichier QRPGSRC.
 
 ## Le Setup
-Le setup dans mon cas : SUcel2fahr
+Le setup dans mon cas : **SUcel2fahr**
 ```
 **free
 ctl-opt nomain;
@@ -77,7 +77,7 @@ end-proc;
 //--------------------------------------------------------------------
 ```
 ## Le Test
-Les tests sont à faire au pas à pas. Dans mon cas cel2fahrTU.
+Les tests sont à faire au pas à pas. Dans mon cas **cel2fahrTU**.
 
 ```
 **free
@@ -294,12 +294,12 @@ end-proc;
 
 ## Envoyer les modifs en intégration
 
-- La commande est SAVRSTOBJ OBJ(T_cel2fahr) LIB(ADHTU) RMTLOCNAME(RECETTE) OBJTYPE(*SRVPGM)
+- La commande est **SAVRSTOBJ OBJ(T_cel2fahr) LIB(ADHTU) RMTLOCNAME(RECETTE) OBJTYPE(*SRVPGM)**
 > RMTLOCNAME indique la machine de destination
 > LIB la Bibliothèque de Tests
 
 ## Tester en intégration
 
-- La commande est RUCALLTST T_cel2fahr
+- La commande est **RUCALLTST T_cel2fahr**
 > On peut voir l'affichage du resultat en 5250. Faire les Tests un par un.
 
