@@ -43,7 +43,7 @@ utilise des modules.
 
 ## Envoyer les modifs en intégration
 
-- La commande est SAVRSTOBJ OBJ(T_NOMCLI) LIB(ADHTU) RMTLOCNAME(RECETTE) OBJTYPE(*SRVPGM)
+- La commande est SAVRSTOBJ OBJ(T_cel2fahr) LIB(ADHTU) RMTLOCNAME(RECETTE) OBJTYPE(*SRVPGM)
 > RMTLOCNAME indique la machine de destination
 > LIB la Bibliothèque de Tests
 
