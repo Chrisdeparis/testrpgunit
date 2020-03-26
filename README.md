@@ -296,6 +296,7 @@ end-proc;
 ## Envoyer les modifs en intégration
 
 - La commande est **SAVRSTOBJ OBJ(T_cel2fahr) LIB(ADHTU) RMTLOCNAME(RECETTE) OBJTYPE(*SRVPGM)**
+> Je l'ai ajouté au CL comme ça toute modification est envoyée directe en recette.
 > RMTLOCNAME indique la machine de destination
 > LIB la Bibliothèque de Tests
 
