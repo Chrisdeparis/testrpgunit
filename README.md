@@ -41,6 +41,7 @@ utilise des modules.
     ENDPGM 
 ```
 > Chaque module doit être préparé suivant les règles de RPGUnit SUnomdumodule, nomdumoduleTU et TDnomdumodule dans le fichier QRPGSRC.
+> CALL **T_NOMCLI pour créer le module et programme de service**
 
 ## Le Setup
 Le setup dans mon cas : **SUcel2fahr**
