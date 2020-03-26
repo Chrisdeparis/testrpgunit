@@ -11,7 +11,7 @@ utilise des modules.
 
 - je reprends l'exemple de mon premier CL de test réalisé pour un programme de conversion des celsius en Fahrenheit.
 
-```python
+```php
     PGM
     /* déclaration des variables */
     DCL        VAR(&LIBTUADH) TYPE(*CHAR) LEN(10) VALUE('ADHTU')
@@ -45,7 +45,7 @@ utilise des modules.
 
 ## Le Setup
 Le setup dans mon cas : **SUcel2fahr**
-```python
+```php
 **free
 ctl-opt nomain;
 
@@ -80,7 +80,7 @@ end-proc;
 ## Le Test
 Les tests sont à faire au pas à pas. Dans mon cas **cel2fahrTU**.
 
-```python
+```php
 **free
 ctl-opt nomain;
 
@@ -203,7 +203,7 @@ end-proc;
 
 ## Le Tear Down
 C'est la dernière partie des modules.
-```python
+```php
 **free
 ctl-opt nomain;
 
