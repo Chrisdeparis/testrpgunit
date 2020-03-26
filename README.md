@@ -11,7 +11,7 @@ utilise des modules.
 
 - je reprends l'exemple de mon premier CL de test réalisé pour un programme de conversion des celsius en Fahrenheit.
 
-```
+```sqlrpgle
     PGM
     /* déclaration des variables */
     DCL        VAR(&LIBTUADH) TYPE(*CHAR) LEN(10) VALUE('ADHTU')
